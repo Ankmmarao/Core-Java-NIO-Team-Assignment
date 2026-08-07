@@ -29,6 +29,8 @@ public class XmlDocumentReader {
 		FileChannel channel=FileChannel.open(path, StandardOpenOption.READ);
 		
 		
+		
+		
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		
