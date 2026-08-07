@@ -9,7 +9,8 @@ import com.iispl.model.TransactionResult;
 public interface TransactionDAO {
 	
 	
-	void insertTransaction(Connection con,TransactionRequest request,List<TransactionResult> result) throws Exception;
-
- 
+	void insertTransaction(Connection con,TransactionRequest request,TransactionResult result) throws Exception;
+    
+    
+	
 }

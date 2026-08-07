@@ -14,6 +14,9 @@ import com.iispl.model.Account;
 public class AccountDAOImpl implements AccountDAO {
 
 	public static final String CHECK_ACCOUNT = "select accountnumber from Account where Acchount=?";
+	public static final String DEBIT_ACCOUNT = "UPDATE Account SET balance = balance - ? WHERE accountnumber = ?";
+
+	public static final String CREDIT_ACCOUNT = "UPDATE Account SET balance = balance + ? WHERE accountnumber = ?";
 
 	@Override
 	public boolean isAccountExist(Connection con, String accountNumber) throws Exception {
@@ -71,7 +74,7 @@ public class AccountDAOImpl implements AccountDAO {
 	@Override
 	public boolean updateBalance(Connection con, String accountNumber, BigDecimal acccountMoney) throws Exception {
 		
-		try(PreparedStatement stmt = con.prepareStatement(UPDATE_BALANCE));
+		try(PreparedStatement stmt = con.prepareStatement(UPDATE_BALANCE))
 				{
 					stmt.setBigDecimal(1, acccountMoney);
 					stmt.setString(1, accountNumber);
@@ -82,7 +85,7 @@ public class AccountDAOImpl implements AccountDAO {
 							System.out.println("Updated successfully");
 							return true;
 						}else {
-							System.out.println()"Updated failed");
+							System.out.println("Updated failed");
 						}
 						
 				}
@@ -92,5 +95,30 @@ public class AccountDAOImpl implements AccountDAO {
 		
 		
 		return false;
+	}
+
+	@Override
+	public boolean debitAccount(Connection con, String accountNumber,BigDecimal amount) throws Exception {
+
+	    PreparedStatement ps =
+	            con.prepareStatement(DEBIT_ACCOUNT);
+
+	    ps.setBigDecimal(1, amount);
+	    ps.setString(2, accountNumber);
+
+	    int rows = ps.executeUpdate();
+
+	    return rows > 0;
+	}
+
+	@Override
+	public boolean creditAccount(Connection con, String accountNumber, BigDecimal amount) throws Exception {
+		PreparedStatement ps=con.prepareStatement(CREDIT_ACCOUNT);
+		ps.setBigDecimal(1, amount);
+		ps.setString(2, accountNumber);
+		int rows =ps.executeUpdate();
+		
+		// TODO Auto-generated method stub
+		return rows>0;
 	}
 }

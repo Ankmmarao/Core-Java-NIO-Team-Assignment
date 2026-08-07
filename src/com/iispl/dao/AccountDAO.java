@@ -6,6 +6,11 @@ import java.sql.Connection;
 import com.iispl.model.Account;
 
 public interface AccountDAO {
+	boolean debitAccount(Connection con, String accountNumber,
+            BigDecimal amount) throws Exception;
+
+boolean creditAccount(Connection con, String accountNumber,
+             BigDecimal amount) throws Exception;
 	
 	public boolean isAccountExist(Connection con,String accountNumber) throws Exception;
 	
