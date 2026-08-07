@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.nio.file.attribute.BasicFileAttributes;
 
 import com.iispl.util.Constants;
 
@@ -33,9 +34,45 @@ public class FileIntakeService {
     		 }
     		 return null;
     	 }
-		 private void validateFile(Path path) {
-			// TODO Auto-generated method stub
-			//FileAttribute attr=Files
-		 }
+    	 private void validateFile(Path path) throws Exception {
+
+    		    // 1. File exists
+    		    if (!Files.exists(path)) {
+    		        throw new Exception("File does not exist.");
+    		    }
+
+    		    // 2. Regular file check
+    		    if (!Files.isRegularFile(path)) {
+    		        throw new Exception("Not a valid file.");
+    		    }
+
+    		    // 3. XML extension check
+    		    if (!path.toString().endsWith(Constants.XML_EXTENSION)) {
+    		        throw new Exception("Only XML files are allowed.");
+    		    }
+
+    		    // 4. File name validation
+    		    String fileName = path.getFileName().toString();
+
+    		    if (!fileName.matches(Constants.FILE_NAME_REGEX)) {
+    		        throw new Exception("Invalid file name : " + fileName);
+    		    }
+
+    		    // 5. Empty file validation
+    		    if (Files.size(path) == 0) {
+    		        throw new Exception("Input file is empty.");
+    		    }
+
+    		    // 6. Read Basic File Attributes
+    		    BasicFileAttributes attributes =
+    		            Files.readAttributes(path, BasicFileAttributes.class);
+
+    		    System.out.println("========== File Details ==========");
+    		    System.out.println("File Name      : " + fileName);
+    		    System.out.println("File Size      : " + attributes.size() + " bytes");
+    		    System.out.println("Created Time   : " + attributes.creationTime());
+    		    System.out.println("Last Modified  : " + attributes.lastModifiedTime());
+    		    System.out.println("==================================");
+    		}
      }
 
