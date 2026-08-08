@@ -92,6 +92,13 @@ public class TransactionRequest {
 		public void setRemarks(String remarks) {
 			this.remarks = remarks;
 		}
+
+		@Override
+		public String toString() {
+			return "TransactionRequest [transactionId=" + transactionId + ", batchId=" + batchId + ", fromAccount="
+					+ fromAccount + ", toAccount=" + toAccount + ", transactionType=" + transactionType + ", amount="
+					+ amount + ", transactionDate=" + transactionDate + ", remarks=" + remarks + "]";
+		}
 		
 		
 	    

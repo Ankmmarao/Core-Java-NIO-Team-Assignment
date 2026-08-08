@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<response>
+    <transaction>
+        <transactionId>TXN3001</transactionId>
+        <batchId></batchId>
+        <status>SUCCESS</status>
+        <code>SUCCESS</code>
+        <reason>Transaction Completed Successfully</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN3002</transactionId>
+        <batchId></batchId>
+        <status>SUCCESS</status>
+        <code>SUCCESS</code>
+        <reason>Transaction Completed Successfully</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN3003</transactionId>
+        <batchId></batchId>
+        <status>FAILURE</status>
+        <code>ACC003</code>
+        <reason>Account Inactive</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN3004</transactionId>
+        <batchId></batchId>
+        <status>FAILURE</status>
+        <code>ACC003</code>
+        <reason>Account Inactive</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN3005</transactionId>
+        <batchId></batchId>
+        <status>SUCCESS</status>
+        <code>SUCCESS</code>
+        <reason>Transaction Completed Successfully</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN3006</transactionId>
+        <batchId></batchId>
+        <status>SUCCESS</status>
+        <code>SUCCESS</code>
+        <reason>Transaction Completed Successfully</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN3007</transactionId>
+        <batchId></batchId>
+        <status>SUCCESS</status>
+        <code>SUCCESS</code>
+        <reason>Transaction Completed Successfully</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN3008</transactionId>
+        <batchId></batchId>
+        <status>FAILURE</status>
+        <code>ACC003</code>
+        <reason>Account Inactive</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN3009</transactionId>
+        <batchId></batchId>
+        <status>FAILURE</status>
+        <code>ACC003</code>
+        <reason>Account Inactive</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN3010</transactionId>
+        <batchId></batchId>
+        <status>SUCCESS</status>
+        <code>SUCCESS</code>
+        <reason>Transaction Completed Successfully</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN3011</transactionId>
+        <batchId></batchId>
+        <status>SUCCESS</status>
+        <code>SUCCESS</code>
+        <reason>Transaction Completed Successfully</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN3012</transactionId>
+        <batchId></batchId>
+        <status>SUCCESS</status>
+        <code>SUCCESS</code>
+        <reason>Transaction Completed Successfully</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN3013</transactionId>
+        <batchId></batchId>
+        <status>FAILURE</status>
+        <code>ACC003</code>
+        <reason>Account Inactive</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN3014</transactionId>
+        <batchId></batchId>
+        <status>FAILURE</status>
+        <code>ACC003</code>
+        <reason>Account Inactive</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN3015</transactionId>
+        <batchId></batchId>
+        <status>SUCCESS</status>
+        <code>SUCCESS</code>
+        <reason>Transaction Completed Successfully</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN3016</transactionId>
+        <batchId></batchId>
+        <status>SUCCESS</status>
+        <code>SUCCESS</code>
+        <reason>Transaction Completed Successfully</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN3017</transactionId>
+        <batchId></batchId>
+        <status>SUCCESS</status>
+        <code>SUCCESS</code>
+        <reason>Transaction Completed Successfully</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN3018</transactionId>
+        <batchId></batchId>
+        <status>FAILURE</status>
+        <code>ACC003</code>
+        <reason>Account Inactive</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN3019</transactionId>
+        <batchId></batchId>
+        <status>FAILURE</status>
+        <code>ACC003</code>
+        <reason>Account Inactive</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN3020</transactionId>
+        <batchId></batchId>
+        <status>SUCCESS</status>
+        <code>SUCCESS</code>
+        <reason>Transaction Completed Successfully</reason>
+    </transaction>
+</response>

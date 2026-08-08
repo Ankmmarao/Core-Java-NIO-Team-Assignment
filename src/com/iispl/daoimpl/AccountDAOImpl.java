@@ -13,112 +13,127 @@ import com.iispl.model.Account;
 
 public class AccountDAOImpl implements AccountDAO {
 
-	public static final String CHECK_ACCOUNT = "select accountnumber from Account where Acchount=?";
-	public static final String DEBIT_ACCOUNT = "UPDATE Account SET balance = balance - ? WHERE accountnumber = ?";
+    private static final String CHECK_ACCOUNT =
+            "SELECT account_number FROM account WHERE account_number = ?";
 
-	public static final String CREDIT_ACCOUNT = "UPDATE Account SET balance = balance + ? WHERE accountnumber = ?";
+    private static final String GET_ACCOUNT =
+            "SELECT * FROM account WHERE account_number = ?";
 
-	@Override
-	public boolean isAccountExist(Connection con, String accountNumber) throws Exception {
+    private static final String UPDATE_BALANCE =
+            "UPDATE account SET account_money = ? WHERE account_number = ?";
 
-		try (PreparedStatement stmt = con.prepareStatement(CHECK_ACCOUNT)) {
-			stmt.setString(1, accountNumber);
+    private static final String DEBIT_ACCOUNT =
+            "UPDATE account SET account_money = account_money - ? WHERE account_number = ?";
 
-			ResultSet rs = stmt.executeQuery();
+    private static final String CREDIT_ACCOUNT =
+            "UPDATE account SET account_money = account_money + ? WHERE account_number = ?";
 
-			return rs.next();
+    @Override
+    public boolean isAccountExist(Connection con, String accountNumber) throws Exception {
 
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		return false;
+        try (PreparedStatement stmt = con.prepareStatement(CHECK_ACCOUNT)) {
 
-	}
+            stmt.setString(1, accountNumber);
 
-	public static final String GET_ACCOUNT = "select * from account where accountNumber = ?";
+            ResultSet rs = stmt.executeQuery();
 
-	@Override
-	public Account getAccount(Connection con, String accountNumber) throws Exception {
+            return rs.next();
 
-		try (PreparedStatement stmt = con.prepareStatement(GET_ACCOUNT)) {
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
 
-			stmt.setString(1, accountNumber);
+    @Override
+    public Account getAccount(Connection con, String accountNumber) throws Exception {
 
-			ResultSet rs = stmt.executeQuery();
+        try (PreparedStatement stmt = con.prepareStatement(GET_ACCOUNT)) {
 
-			while (rs.next()) {
+            stmt.setString(1, accountNumber);
 
-				String customerName = rs.getString("customerName");
+            ResultSet rs = stmt.executeQuery();
 
-				String accNumber = rs.getString("accountNumber");
+            if (rs.next()) {
 
-				AccountType accountType = AccountType.valueOf(rs.getString("accountType"));
+                String customerName = rs.getString("customer_name");
 
-				BigDecimal accountmoney = rs.getBigDecimal("accountMoney");
+                String accNumber = rs.getString("account_number");
 
-				AccountStatus accountStatus = AccountStatus.valueOf(rs.getString("accountStatus"));
+                AccountType accountType =
+                        AccountType.valueOf(rs.getString("account_type"));
 
-				return new Account(customerName, accNumber, accountType, accountmoney, accountStatus);
+                BigDecimal accountMoney =
+                        rs.getBigDecimal("account_money");
 
-			}
+                AccountStatus accountStatus =
+                        AccountStatus.valueOf(rs.getString("account_status"));
 
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
+                return new Account(
+                        customerName,
+                        accNumber,
+                        accountType,
+                        accountMoney,
+                        accountStatus);
+            }
 
-		return null;
-	}
+        } catch (SQLException e) {
+            throw e;
+        }
 
-	public static final String UPDATE_BALANCE = "update account set accountMoney = ? where accountNumber = ?";
+        return null;
+    }
 
-	@Override
-	public boolean updateBalance(Connection con, String accountNumber, BigDecimal acccountMoney) throws Exception {
-		
-		try(PreparedStatement stmt = con.prepareStatement(UPDATE_BALANCE))
-				{
-					stmt.setBigDecimal(1, acccountMoney);
-					stmt.setString(1, accountNumber);
-					
-					int rowUpdated  = stmt.executeUpdate();
-						
-						if(rowUpdated > 0 ) {
-							System.out.println("Updated successfully");
-							return true;
-						}else {
-							System.out.println("Updated failed");
-						}
-						
-				}
-				catch(SQLException e) {
-					System.out.println(e.getMessage());
-				}
-		
-		
-		return false;
-	}
+    @Override
+    public boolean updateBalance(Connection con,
+                                 String accountNumber,
+                                 BigDecimal accountMoney) throws Exception {
 
-	@Override
-	public boolean debitAccount(Connection con, String accountNumber,BigDecimal amount) throws Exception {
+        try (PreparedStatement stmt =
+                     con.prepareStatement(UPDATE_BALANCE)) {
 
-	    PreparedStatement ps =
-	            con.prepareStatement(DEBIT_ACCOUNT);
+            stmt.setBigDecimal(1, accountMoney);
+            stmt.setString(2, accountNumber);
 
-	    ps.setBigDecimal(1, amount);
-	    ps.setString(2, accountNumber);
+            int rows = stmt.executeUpdate();
 
-	    int rows = ps.executeUpdate();
+            return rows > 0;
 
-	    return rows > 0;
-	}
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
 
-	@Override
-	public boolean creditAccount(Connection con, String accountNumber, BigDecimal amount) throws Exception {
-		PreparedStatement ps=con.prepareStatement(CREDIT_ACCOUNT);
-		ps.setBigDecimal(1, amount);
-		ps.setString(2, accountNumber);
-		int rows =ps.executeUpdate();
-		
-		// TODO Auto-generated method stub
-		return rows>0;
-	}
+    @Override
+    public boolean debitAccount(Connection con,
+                                String accountNumber,
+                                BigDecimal amount) throws Exception {
+
+        try (PreparedStatement ps =
+                     con.prepareStatement(DEBIT_ACCOUNT)) {
+
+            ps.setBigDecimal(1, amount);
+            ps.setString(2, accountNumber);
+
+            int rows = ps.executeUpdate();
+
+            return rows > 0;
+        }
+    }
+
+    @Override
+    public boolean creditAccount(Connection con,
+                                 String accountNumber,
+                                 BigDecimal amount) throws Exception {
+
+        try (PreparedStatement ps =
+                     con.prepareStatement(CREDIT_ACCOUNT)) {
+
+            ps.setBigDecimal(1, amount);
+            ps.setString(2, accountNumber);
+
+            int rows = ps.executeUpdate();
+
+            return rows > 0;
+        }
+    }
 }

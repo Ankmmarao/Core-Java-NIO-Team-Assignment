@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<response>
+    <transaction>
+        <transactionId>TXN1001</transactionId>
+        <batchId></batchId>
+        <status>FAILURE</status>
+        <code>ACC001</code>
+        <reason>From Account Not Found</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN1002</transactionId>
+        <batchId></batchId>
+        <status>FAILURE</status>
+        <code>ACC001</code>
+        <reason>From Account Not Found</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN1003</transactionId>
+        <batchId></batchId>
+        <status>FAILURE</status>
+        <code>ACC001</code>
+        <reason>From Account Not Found</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN1004</transactionId>
+        <batchId></batchId>
+        <status>FAILURE</status>
+        <code>ACC001</code>
+        <reason>From Account Not Found</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN1005</transactionId>
+        <batchId></batchId>
+        <status>FAILURE</status>
+        <code>ACC001</code>
+        <reason>From Account Not Found</reason>
+    </transaction>
+</response>
