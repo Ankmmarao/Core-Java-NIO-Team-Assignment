@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bulkTransactions batchId="BATCH-20260809-006" corporateId="CORP105" createdDate="2026-08-09">
+
+    <!-- SUCCESS: valid transaction -->
+    <transaction>
+        <transactionId>TXN6001</transactionId>
+        <fromAccount>100001</fromAccount>
+        <toAccount>200001</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>1000.00</amount>
+        <transactionDate>2026-08-09</transactionDate>
+        <remarks>Valid transfer</remarks>
+    </transaction>
+
+    <!-- SUCCESS: valid transaction -->
+    <transaction>
+        <transactionId>TXN6002</transactionId>
+        <fromAccount>100002</fromAccount>
+        <toAccount>200002</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>2500.00</amount>
+        <transactionDate>2026-08-09</transactionDate>
+        <remarks>Valid transfer</remarks>
+    </transaction>
+
+    <!-- FAILURE: invalid source account -->
+    <transaction>
+        <transactionId>TXN6003</transactionId>
+        <fromAccount>999999</fromAccount>
+        <toAccount>200001</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>500.00</amount>
+        <transactionDate>2026-08-09</transactionDate>
+        <remarks>Invalid source account</remarks>
+    </transaction>
+
+    <!-- FAILURE: invalid amount -->
+    <transaction>
+        <transactionId>TXN6004</transactionId>
+        <fromAccount>100001</fromAccount>
+        <toAccount>300001</toAccount>
+        <transactionType>SALARY_CREDIT</transactionType>
+        <amount>-250.00</amount>
+        <transactionDate>2026-08-09</transactionDate>
+        <remarks>Invalid negative amount</remarks>
+    </transaction>
+
+    <!-- SUCCESS: valid transaction -->
+    <transaction>
+        <transactionId>TXN6005</transactionId>
+        <fromAccount>100003</fromAccount>
+        <toAccount>200003</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>750.00</amount>
+        <transactionDate>2026-08-09</transactionDate>
+        <remarks>Valid transfer</remarks>
+    </transaction>
+
+    <!-- FAILURE: non-existing destination account -->
+    <transaction>
+        <transactionId>TXN6006</transactionId>
+        <fromAccount>100001</fromAccount>
+        <toAccount>999998</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>1200.00</amount>
+        <transactionDate>2026-08-09</transactionDate>
+        <remarks>Invalid destination account</remarks>
+    </transaction>
+
+    <!-- SUCCESS: valid transaction -->
+    <transaction>
+        <transactionId>TXN6007</transactionId>
+        <fromAccount>100004</fromAccount>
+        <toAccount>200004</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>3000.00</amount>
+        <transactionDate>2026-08-09</transactionDate>
+        <remarks>Valid transfer</remarks>
+    </transaction>
+
+    <!-- FAILURE: insufficient balance candidate -->
+    <transaction>
+        <transactionId>TXN6008</transactionId>
+        <fromAccount>100005</fromAccount>
+        <toAccount>200005</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>9999999.00</amount>
+        <transactionDate>2026-08-09</transactionDate>
+        <remarks>Large amount for balance validation</remarks>
+    </transaction>
+
+</bulkTransactions>

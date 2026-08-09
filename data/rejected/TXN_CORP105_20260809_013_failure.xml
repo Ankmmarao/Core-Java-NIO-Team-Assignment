@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transactions>
+    <transaction>
+        <transactionId>TXN6001</transactionId>
+        <batchId>BATCH-20260809-006</batchId>
+        <fromAccount>100001</fromAccount>
+        <toAccount>200001</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>1000.00</amount>
+        <transactionDate>2026-08-09</transactionDate>
+        <remarks>Valid transfer</remarks>
+        <code>100001</code>
+        <reason>From account not found</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN6002</transactionId>
+        <batchId>BATCH-20260809-006</batchId>
+        <fromAccount>100002</fromAccount>
+        <toAccount>200002</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>2500.00</amount>
+        <transactionDate>2026-08-09</transactionDate>
+        <remarks>Valid transfer</remarks>
+        <code>100002</code>
+        <reason>From account not found</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN6003</transactionId>
+        <batchId>BATCH-20260809-006</batchId>
+        <fromAccount>999999</fromAccount>
+        <toAccount>200001</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>500.00</amount>
+        <transactionDate>2026-08-09</transactionDate>
+        <remarks>Invalid source account</remarks>
+        <code>999999</code>
+        <reason>From account not found</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN6004</transactionId>
+        <batchId>BATCH-20260809-006</batchId>
+        <fromAccount>100001</fromAccount>
+        <toAccount>300001</toAccount>
+        <transactionType>SALARY_CREDIT</transactionType>
+        <amount>-250.00</amount>
+        <transactionDate>2026-08-09</transactionDate>
+        <remarks>Invalid negative amount</remarks>
+        <code>100001</code>
+        <reason>From account not found</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN6005</transactionId>
+        <batchId>BATCH-20260809-006</batchId>
+        <fromAccount>100003</fromAccount>
+        <toAccount>200003</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>750.00</amount>
+        <transactionDate>2026-08-09</transactionDate>
+        <remarks>Valid transfer</remarks>
+        <code>100003</code>
+        <reason>From account not found</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN6006</transactionId>
+        <batchId>BATCH-20260809-006</batchId>
+        <fromAccount>100001</fromAccount>
+        <toAccount>999998</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>1200.00</amount>
+        <transactionDate>2026-08-09</transactionDate>
+        <remarks>Invalid destination account</remarks>
+        <code>100001</code>
+        <reason>From account not found</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN6007</transactionId>
+        <batchId>BATCH-20260809-006</batchId>
+        <fromAccount>100004</fromAccount>
+        <toAccount>200004</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>3000.00</amount>
+        <transactionDate>2026-08-09</transactionDate>
+        <remarks>Valid transfer</remarks>
+        <code>100004</code>
+        <reason>From account not found</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN6008</transactionId>
+        <batchId>BATCH-20260809-006</batchId>
+        <fromAccount>100005</fromAccount>
+        <toAccount>200005</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>9999999.00</amount>
+        <transactionDate>2026-08-09</transactionDate>
+        <remarks>Large amount for balance validation</remarks>
+        <code>100005</code>
+        <reason>From account not found</reason>
+    </transaction>
+</transactions>

@@ -37,10 +37,9 @@ public class TransactionServices {
         this.accounts = accounts;
     }
 
-    public TransactionResult processData(
-            TransactionRequest tr) throws Exception {
+    public TransactionResult processData(TransactionRequest tr) throws Exception {
 
-        // Find From Account
+        // Find FromAccount
         Account fromAccount =
                 findAccount(tr.getFromAccount());
 
@@ -48,11 +47,11 @@ public class TransactionServices {
 
             return createFailureResult(
                     tr,
-                    "ACC001",
+                    tr.getFromAccount(),
                     "From account not found");
         }
 
-        // Find To Account
+        // Find ToAccount
         Account toAccount =
                 findAccount(tr.getToAccount());
 
@@ -60,7 +59,7 @@ public class TransactionServices {
 
             return createFailureResult(
                     tr,
-                    "ACC002",
+                    tr.getToAccount(),
                     "To account not found");
         }
 
