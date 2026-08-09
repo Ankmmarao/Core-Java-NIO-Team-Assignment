@@ -6,7 +6,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.iispl.enums.TransactionStatus;
 import com.iispl.model.Account;
 import com.iispl.model.TransactionRequest;
 import com.iispl.model.TransactionResult;
@@ -16,7 +15,12 @@ import com.iispl.nio.SucessTransactionXmlWriter;
 import com.iispl.nio.XmlDocumentReader;
 import com.iispl.service.TransactionServices;
 import com.iispl.util.Constants;
+import java.sql.Timestamp;
+import java.time.Instant;
 
+import com.iispl.enums.TransactionStatus;
+import com.iispl.model.FileProcessingSummary;
+import com.iispl.nio.SummaryFileWriter;
 public class CTSMainApplication {
 
     public static void main(String[] args) {
@@ -57,6 +61,9 @@ public class CTSMainApplication {
 
             RejectTransactionXmlWriter rejectWriter =
                     new RejectTransactionXmlWriter();
+            
+            SummaryFileWriter summaryWriter =
+                    new SummaryFileWriter();
 
             // Process each input XML file
             for (Path processingFile : files) {
@@ -81,7 +88,7 @@ public class CTSMainApplication {
 
                 // Process transactions one by one
                 for (TransactionRequest request : requests) {
-
+                	
                     TransactionResult result =
                             transactionServices.processData(
                                     request);
@@ -123,7 +130,63 @@ public class CTSMainApplication {
                         requests,
                         results,
                         failureFile.toString());
+                
+             // Calculate summary information
 
+                int totalRecords = results.size();
+
+                int successfulRecords = (int) results.stream()
+                        .filter(result ->
+                                result.getTransactionStatus()
+                                        == TransactionStatus.SUCCESS)
+                        .count();
+
+                int failedRecords =
+                        totalRecords - successfulRecords;
+
+
+                // Get batch ID
+
+                String batchId = "";
+
+                if (!requests.isEmpty()) {
+                    batchId = requests.get(0).getBatchId();
+                }
+
+
+                // Determine processing status
+
+                String processingStatus;
+
+                if (failedRecords == 0) {
+
+                    processingStatus = "SUCCESS";
+
+                } else if (successfulRecords == 0) {
+
+                    processingStatus = "FAILURE";
+
+                } else {
+
+                    processingStatus = "PARTIAL_SUCCESS";
+                }
+                
+                // Create FileProcessingSummary object
+
+                FileProcessingSummary summary =
+                        new FileProcessingSummary(
+                                batchId,
+                                originalFileName,
+                                totalRecords,
+                                successfulRecords,
+                                failedRecords,
+                                processingStatus,
+                                Timestamp.from(Instant.now())
+                        );
+
+
+                // Write summary file
+                summaryWriter.write(summary);
                 System.out.println(
                         "File Processing Completed : "
                         + processingFile.getFileName());

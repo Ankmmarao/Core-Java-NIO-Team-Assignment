@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bulkTransactions batchId="BATCH-20260809-007" corporateId="CORP106" createdDate="2026-08-09">
+    <transaction>
+        <transactionId>TXN7001</transactionId>
+        <fromAccount>100001</fromAccount>
+        <toAccount>200001</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>100.00</amount>
+        <transactionDate>2026-08-09</transactionDate>
+        <remarks>Valid fund transfer</remarks>
+    </transaction>
+    <transaction>
+        <transactionId>TXN7002</transactionId>
+        <fromAccount>100001</fromAccount>
+        <toAccount>200001</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>150.00</amount>
+        <transactionDate>2026-08-09</transactionDate>
+        <remarks>Valid fund transfer</remarks>
+    </transaction>
+    <transaction>
+        <transactionId>TXN7003</transactionId>
+        <fromAccount>100001</fromAccount>
+        <toAccount>200001</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>200.00</amount>
+        <transactionDate>2026-08-09</transactionDate>
+        <remarks>Valid fund transfer</remarks>
+    </transaction>
+    <transaction>
+        <transactionId>TXN7004</transactionId>
+        <fromAccount>100001</fromAccount>
+        <toAccount>200001</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>250.00</amount>
+        <transactionDate>2026-08-09</transactionDate>
+        <remarks>Valid fund transfer</remarks>
+    </transaction>
+    <transaction>
+        <transactionId>TXN7005</transactionId>
+        <fromAccount>100001</fromAccount>
+        <toAccount>200001</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>300.00</amount>
+        <transactionDate>2026-08-09</transactionDate>
+        <remarks>Valid fund transfer</remarks>
+    </transaction>
+</bulkTransactions>

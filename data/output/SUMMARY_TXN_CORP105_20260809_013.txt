@@ -1,0 +1,11 @@
+========================================
+       FILE PROCESSING SUMMARY
+========================================
+Batch ID           : BATCH-20260809-006
+File Name          : TXN_CORP105_20260809_013.xml
+Total Records      : 8
+Successful Records : 0
+Failed Records     : 8
+Processing Status   : FAILURE
+Processed At       : 2026-08-09 21:29:05.0224971
+========================================
