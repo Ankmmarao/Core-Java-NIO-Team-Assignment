@@ -19,6 +19,7 @@ public class TransactionResult {
 			this.Code = Code;
 			this.sourceFile = sourceFile;
 			this.Reason = Reason;
+			
 		}
 
 		public String getTransactionId() {
