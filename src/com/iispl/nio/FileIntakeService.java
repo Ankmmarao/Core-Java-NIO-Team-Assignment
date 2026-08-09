@@ -74,6 +74,7 @@ public class FileIntakeService {
                     + path.getFileName());
         }
         
+        
 	    //  Regular file check
 	    if (!Files.isRegularFile(path)) {
 	        throw new Exception("Not a valid file.");
