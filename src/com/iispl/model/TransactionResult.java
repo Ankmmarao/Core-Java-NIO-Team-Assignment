@@ -11,15 +11,14 @@ public class TransactionResult {
 	    
 	    private String Reason;
 
-		public TransactionResult(String transactionId, String batchId, TransactionStatus transactionStatus, String code,
-				String sourceFile, String reason) {
+		public TransactionResult() {
 			super();
 			this.transactionId = transactionId;
 			this.batchId = batchId;
 			this.transactionStatus = transactionStatus;
-			Code = code;
+			this.Code = Code;
 			this.sourceFile = sourceFile;
-			Reason = reason;
+			this.Reason = Reason;
 		}
 
 		public String getTransactionId() {

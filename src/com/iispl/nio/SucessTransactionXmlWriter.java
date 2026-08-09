@@ -13,7 +13,7 @@ import com.iispl.enums.TransactionStatus;
 import com.iispl.model.TransactionRequest;
 import com.iispl.model.TransactionResult;
 
-public class RejectTransactionXmlWriter {
+public class SucessTransactionXmlWriter {
 
     public void write(
             List<TransactionRequest> requests,
@@ -44,7 +44,7 @@ public class RejectTransactionXmlWriter {
             for (TransactionResult result : results) {
 
                 if (result.getTransactionStatus()
-                        != TransactionStatus.FAILURE) {
+                        != TransactionStatus.SUCCESS) {
 
                     continue;
                 }
@@ -112,20 +112,6 @@ public class RejectTransactionXmlWriter {
                                 "        <remarks>"
                                 + request.getRemarks()
                                 + "</remarks>");
-
-                        writer.newLine();
-
-                        writer.write(
-                                "        <code>"
-                                + result.getCode()
-                                + "</code>");
-
-                        writer.newLine();
-
-                        writer.write(
-                                "        <reason>"
-                                + result.getReason()
-                                + "</reason>");
 
                         writer.newLine();
 

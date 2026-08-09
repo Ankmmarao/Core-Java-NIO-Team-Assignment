@@ -1,17 +1,21 @@
 package com.iispl.main;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.iispl.enums.TransactionStatus;
+import com.iispl.model.Account;
 import com.iispl.model.TransactionRequest;
 import com.iispl.model.TransactionResult;
-import com.iispl.nio.ArchiveService;
 import com.iispl.nio.FileIntakeService;
 import com.iispl.nio.RejectTransactionXmlWriter;
-import com.iispl.nio.ResponseXmlWriter;
+import com.iispl.nio.SucessTransactionXmlWriter;
 import com.iispl.nio.XmlDocumentReader;
 import com.iispl.service.TransactionServices;
+import com.iispl.util.Constants;
 
 public class CTSMainApplication {
 
@@ -19,103 +23,121 @@ public class CTSMainApplication {
 
         try {
 
-            System.out.println("------------------------------------------------------------");
-            System.out.println("CTS BULK TRANSACTION PROCESSING SYSTEM");
-            System.out.println("------------------------------------------------------------");
+            System.out.println(
+                    "------------------------------------------------------------");
 
-            FileIntakeService intakeService = new FileIntakeService();
+            System.out.println(
+                    "CTS BULK TRANSACTION PROCESSING SYSTEM");
 
-            List<Path> files = intakeService.getNextFiles();
+            System.out.println(
+                    "------------------------------------------------------------");
+
+            FileIntakeService intakeService =
+                    new FileIntakeService();
+
+            List<Path> files =
+                    intakeService.getNextFiles();
 
             if (files.isEmpty()) {
-                System.out.println("No XML Files Found.");
+
+                System.out.println(
+                        "No XML Files Found.");
+
                 return;
             }
 
+            List<Account> accounts =
+                    getAccounts();
+
+            TransactionServices transactionServices =
+                    new TransactionServices(accounts);
+
+            SucessTransactionXmlWriter successWriter =
+                    new SucessTransactionXmlWriter();
+
+            RejectTransactionXmlWriter rejectWriter =
+                    new RejectTransactionXmlWriter();
+
+            // Process each input XML file
             for (Path processingFile : files) {
 
-                System.out.println("\nProcessing File : "
+                System.out.println(
+                        "\nProcessing File : "
                         + processingFile.getFileName());
 
-                XmlDocumentReader reader = new XmlDocumentReader();
+                XmlDocumentReader reader =
+                        new XmlDocumentReader();
 
                 List<TransactionRequest> requests =
                         reader.xmlReader(processingFile);
 
-                System.out.println("Records Found : " + requests.size());
+                System.out.println(
+                        "Total Transactions : "
+                        + requests.size());
 
-                TransactionServices service =
-                        new TransactionServices();
-
+                // Store result of every transaction
                 List<TransactionResult> results =
-                        service.processTransactions(requests);
+                        new ArrayList<>();
 
-                int success = 0;
-                int failure = 0;
+                // Process transactions one by one
+                for (TransactionRequest request : requests) {
 
-                for (TransactionResult result : results) {
+                    TransactionResult result =
+                            transactionServices.processData(
+                                    request);
 
-                    if (result.getTransactionStatus() == TransactionStatus.SUCCESS) {
-
-                        success++;
-
-                        System.out.println(
-                                result.getTransactionId()
-                                + " : SUCCESS");
-
-                    } else {
-
-                        failure++;
-
-                        System.out.println(
-                                result.getTransactionId()
-                                + " : FAILED ("
-                                + result.getReason()
-                                + ")");
-                    }
+                    results.add(result);
                 }
 
-                // Response XML (All Transactions)
-                ResponseXmlWriter responseWriter =
-                        new ResponseXmlWriter();
+                // Create file names
+                String originalFileName =
+                        processingFile.getFileName().toString();
 
-                responseWriter.writeResponse(
+                String baseName =
+                        originalFileName.substring(
+                                0,
+                                originalFileName.lastIndexOf('.'));
+
+                Path successFile =
+                        Paths.get(Constants.OUTPUT_DIR)
+                             .resolve(
+                                 baseName + "_success.xml");
+
+                Path failureFile =
+                        Paths.get(Constants.REJECTED_DIR)
+                             .resolve(
+                                 baseName + "_failure.xml");
+
+                // Remove old output files
+                Files.deleteIfExists(successFile);
+                Files.deleteIfExists(failureFile);
+
+                // Write all SUCCESS transactions
+                successWriter.write(
+                        requests,
                         results,
-                        processingFile.getFileName().toString());
+                        successFile.toString());
 
-                // Rejected XML (Only Failed Transactions)
-                if (failure > 0) {
+                // Write all FAILURE transactions
+                rejectWriter.write(
+                        requests,
+                        results,
+                        failureFile.toString());
 
-                    RejectTransactionXmlWriter rejectWriter =
-                            new RejectTransactionXmlWriter();
-
-                    rejectWriter.writeRejectedTransactions(
-                            requests,
-                            results,
-                            processingFile.getFileName().toString());
-
-                    System.out.println(
-                            "Rejected XML Created Successfully.");
-                }
-
-                // Archive Original XML
-                ArchiveService archive =
-                        new ArchiveService();
-
-                archive.archiveFile(processingFile);
-
-                System.out.println("Original XML Archived.");
-
-                System.out.println("\n---------------- Summary ----------------");
-                System.out.println("Total Records : " + requests.size());
-                System.out.println("Success       : " + success);
-                System.out.println("Failure       : " + failure);
-                System.out.println("-----------------------------------------");
+                System.out.println(
+                        "File Processing Completed : "
+                        + processingFile.getFileName());
             }
 
         } catch (Exception e) {
 
             e.printStackTrace();
         }
+    }
+
+    private static List<Account> getAccounts() {
+
+        // Replace with your actual account loading logic
+        return List.of();
     }
 }

@@ -5,196 +5,207 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.iispl.dao.AccountDAO;
-import com.iispl.dao.TransactionDAO;
 import com.iispl.daoimpl.AccountDAOImpl;
-import com.iispl.daoimpl.TransactionDAOImpl;
-import com.iispl.enums.AccountStatus;
+import com.iispl.enums.AccountValidationEnum;
 import com.iispl.enums.TransactionStatus;
 import com.iispl.model.Account;
 import com.iispl.model.TransactionRequest;
 import com.iispl.model.TransactionResult;
+import com.iispl.nio.RejectTransactionXmlWriter;
+import com.iispl.nio.SucessTransactionXmlWriter;
 import com.iispl.util.DBUtils;
+import com.iispl.validation.AccountBalanceValidation;
+import com.iispl.validation.AccountStatusValidation;
+import com.iispl.validation.AccountTypeValidation;
+import com.iispl.validation.FromAccountValidation;
+import com.iispl.validation.ValidationRule;
 
 public class TransactionServices {
 
-    private AccountDAO accountDAO;
-    private TransactionDAO transactionDAO;
-    private ValidationServices validationServices;
+    private final AccountDAO accountDAO =
+            new AccountDAOImpl();
 
-    public TransactionServices() {
+    private final List<Account> accounts;
 
-        accountDAO = new AccountDAOImpl();
-        transactionDAO = new TransactionDAOImpl();
-        validationServices = new ValidationServices();
+    private final SucessTransactionXmlWriter successWriter =
+            new SucessTransactionXmlWriter();
+
+    private final RejectTransactionXmlWriter rejectWriter =
+            new RejectTransactionXmlWriter();
+
+    public TransactionServices(List<Account> accounts) {
+        this.accounts = accounts;
     }
 
-    public List<TransactionResult> processTransactions(List<TransactionRequest> requests) {
+    public TransactionResult processData(
+            TransactionRequest tr) throws Exception {
 
-        List<TransactionResult> results = new ArrayList<>();
+        // Find From Account
+        Account fromAccount =
+                findAccount(tr.getFromAccount());
 
-        for (TransactionRequest request : requests) {
+        if (fromAccount == null) {
 
-            try {
+            return createFailureResult(
+                    tr,
+                    "ACC001",
+                    "From account not found");
+        }
 
-                TransactionResult result = processTransaction(request);
-                results.add(result);
+        // Find To Account
+        Account toAccount =
+                findAccount(tr.getToAccount());
 
-            } catch (Exception e) {
+        if (toAccount == null) {
 
-                TransactionResult result = new TransactionResult(
-                        request.getTransactionId(),
-                        request.getBatchId(),
-                        TransactionStatus.FAILURE,
-                        "SYS001",
-                        "transactions.xml",
-                        e.getMessage());
+            return createFailureResult(
+                    tr,
+                    "ACC002",
+                    "To account not found");
+        }
 
-                results.add(result);
+        // Validation rules
+        List<ValidationRule> validations =
+                new ArrayList<>();
+
+        validations.add(new FromAccountValidation());
+        validations.add(new AccountStatusValidation());
+        validations.add(new AccountTypeValidation());
+        validations.add(new AccountBalanceValidation());
+
+        // Validate From Account
+        for (ValidationRule rule : validations) {
+
+            AccountValidationEnum validationResult =
+                    rule.validate(fromAccount);
+
+            if (validationResult
+                    != AccountValidationEnum.VALID_ACCOUNT) {
+
+                return createFailureResult(
+                        tr,
+                        validationResult.name(),
+                        validationResult.name());
             }
         }
 
-        return results;
-    }
+        // Debit and Credit
+        try (Connection con =
+                DBUtils.getDataSource()
+                        .getConnection()) {
 
-    public TransactionResult processTransaction(TransactionRequest request) throws Exception {
-
-        TransactionResult result = new TransactionResult(
-                request.getTransactionId(),
-                request.getBatchId(),
-                null,
-                null,
-                "transactions.xml",
-                null);
-
-        Connection con = null;
-
-        try {
-
-            con = DBUtils.getDataSource().getConnection();
             con.setAutoCommit(false);
 
-            // From Account Validation
-            if (!accountDAO.isAccountExist(con, request.getFromAccount())) {
-
-                result.setTransactionStatus(TransactionStatus.FAILURE);
-                result.setCode("ACC001");
-                result.setReason("From Account Not Found");
-
-                transactionDAO.insertTransactionResult(con, result);
-
-                con.commit();
-
-                return result;
-            }
-
-            // To Account Validation
-            if (!accountDAO.isAccountExist(con, request.getToAccount())) {
-
-                result.setTransactionStatus(TransactionStatus.FAILURE);
-                result.setCode("ACC002");
-                result.setReason("To Account Not Found");
-
-                transactionDAO.insertTransactionResult(con, result);
-
-                con.commit();
-
-                return result;
-            }
-
-            Account fromAccount =
-                    accountDAO.getAccount(con, request.getFromAccount());
-
-            Account toAccount =
-                    accountDAO.getAccount(con, request.getToAccount());
-
-            // Account Status Validation
-            if (fromAccount.getAccountStatus() != AccountStatus.ACTIVE
-                    || toAccount.getAccountStatus() != AccountStatus.ACTIVE) {
-
-                result.setTransactionStatus(TransactionStatus.FAILURE);
-                result.setCode("ACC003");
-                result.setReason("Account Inactive");
-
-                transactionDAO.insertTransactionResult(con, result);
-
-                con.commit();
-
-                return result;
-            }
-
-            // Balance Validation
-            if (fromAccount.getAccountmoney().compareTo(request.getAmount()) < 0) {
-
-                result.setTransactionStatus(TransactionStatus.FAILURE);
-                result.setCode("BAL001");
-                result.setReason("Insufficient Balance");
-
-                transactionDAO.insertTransactionResult(con, result);
-
-                con.commit();
-
-                return result;
-            }
-
             // Debit
-            if (!accountDAO.debitAccount(
-                    con,
-                    request.getFromAccount(),
-                    request.getAmount())) {
+            boolean debit =
+                    accountDAO.debitAccount(
+                            con,
+                            tr.getFromAccount(),
+                            tr.getAmount());
 
-                throw new Exception("Debit Failed");
+            if (!debit) {
+
+                con.rollback();
+
+                return createFailureResult(
+                        tr,
+                        "DEBIT001",
+                        "Debit operation failed");
             }
 
             // Credit
-            if (!accountDAO.creditAccount(
-                    con,
-                    request.getToAccount(),
-                    request.getAmount())) {
+            boolean credit =
+                    accountDAO.creditAccount(
+                            con,
+                            tr.getToAccount(),
+                            tr.getAmount());
 
-                throw new Exception("Credit Failed");
+            if (!credit) {
+
+                con.rollback();
+
+                return createFailureResult(
+                        tr,
+                        "CREDIT001",
+                        "Credit operation failed");
             }
 
-            // Insert Transaction
-            transactionDAO.insertTransaction(con, request);
-
-            // Success Result
-            result.setTransactionStatus(TransactionStatus.SUCCESS);
-            result.setCode("00");
-            result.setReason("Transaction Completed Successfully");
-
-            transactionDAO.insertTransactionResult(con, result);
-
+            // Both successful
             con.commit();
+
+            return createSuccessResult(tr);
 
         } catch (Exception e) {
 
-            if (con != null) {
-                con.rollback();
-            }
+            return createFailureResult(
+                    tr,
+                    "SYS001",
+                    e.getMessage());
+        }
+    }
 
-            result.setTransactionStatus(TransactionStatus.FAILURE);
-            result.setCode("SYS001");
-            result.setReason(e.getMessage());
+    private Account findAccount(
+            String accountNumber) {
 
-            // Save failure result
-            if (con != null) {
+        if (accountNumber == null) {
+            return null;
+        }
 
-                try {
+        for (Account account : accounts) {
 
-                    con.setAutoCommit(true);
-                    transactionDAO.insertTransactionResult(con, result);
+            if (accountNumber.equals(
+                    account.getAccountNumber())) {
 
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-
-        } finally {
-
-            if (con != null) {
-                con.close();
+                return account;
             }
         }
+
+        return null;
+    }
+
+    private TransactionResult createFailureResult(
+            TransactionRequest tr,
+            String code,
+            String reason) {
+
+        TransactionResult result =
+                new TransactionResult();
+
+        result.setTransactionId(
+                tr.getTransactionId());
+
+        result.setBatchId(
+                tr.getBatchId());
+
+        result.setTransactionStatus(
+                TransactionStatus.FAILURE);
+
+        result.setCode(code);
+
+        result.setReason(reason);
+
+        return result;
+    }
+
+    private TransactionResult createSuccessResult(
+            TransactionRequest tr) {
+
+        TransactionResult result =
+                new TransactionResult();
+
+        result.setTransactionId(
+                tr.getTransactionId());
+
+        result.setBatchId(
+                tr.getBatchId());
+
+        result.setTransactionStatus(
+                TransactionStatus.SUCCESS);
+
+        result.setCode("SUCCESS");
+
+        result.setReason(
+                "All validations passed");
 
         return result;
     }
