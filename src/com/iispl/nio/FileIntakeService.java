@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +50,10 @@ public class FileIntakeService {
 
                 processingFiles.add(processingFile);
             }
-        }
+        } catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         if (processingFiles.isEmpty()) {
             System.out.println("No XML files found in Incoming folder.");
@@ -58,15 +62,45 @@ public class FileIntakeService {
         return processingFiles;
     }
 
-    private void validateFile(Path path) {
-
+    private void validateFile(Path path) throws Exception {
+    	// File exists
         if (!Files.exists(path)) {
             throw new RuntimeException("File not found : " + path);
         }
-
+        
+        //  XML extension check
         if (!path.toString().toLowerCase().endsWith(".xml")) {
             throw new RuntimeException("Invalid file type : "
                     + path.getFileName());
         }
-    }
+        
+	    //  Regular file check
+	    if (!Files.isRegularFile(path)) {
+	        throw new Exception("Not a valid file.");
+	    }
+
+	    //  File name validation
+	    String fileName = path.getFileName().toString();
+
+	    if (!fileName.matches(Constants.FILE_NAME_REGEX)) {
+	        throw new Exception("Invalid file name : " + fileName);
+	    }
+
+	    // Empty file validation
+	    if (Files.size(path) == 0) {
+	        throw new Exception("Input file is empty.");
+	    }
+
+	    // Read Basic File Attributes
+	    BasicFileAttributes attributes =
+	            Files.readAttributes(path, BasicFileAttributes.class);
+
+	    System.out.println("========== File Details ==========");
+	    System.out.println("File Name      : " + fileName);
+	    System.out.println("File Size      : " + attributes.size() + " bytes");
+	    System.out.println("Created Time   : " + attributes.creationTime());
+	    System.out.println("Last Modified  : " + attributes.lastModifiedTime());
+	    System.out.println("==================================");
+	}
+    
 }
