@@ -23,7 +23,7 @@ public class FileIntakeService {
     }
 
     public List<Path> getNextFiles() throws IOException {
-
+        
         List<Path> processingFiles = new ArrayList<>();
 
         Path incomingPath = Paths.get(Constants.INCOMING_DIR);
@@ -41,16 +41,11 @@ public class FileIntakeService {
 
                 validateFile(file);
 
-                Path processingFile = Paths.get(
-                        Constants.PROCESSING_DIR,
-                        file.getFileName().toString());
+                Path processingFile = Paths.get(Constants.PROCESSING_DIR,file.getFileName().toString());
 
-                Files.move(file,
-                        processingFile,
-                        StandardCopyOption.REPLACE_EXISTING);
+                Files.move(file,processingFile,StandardCopyOption.REPLACE_EXISTING);
 
-                System.out.println("Moved File : "
-                        + processingFile.getFileName());
+                System.out.println("Moved File : " + processingFile.getFileName());
 
                 processingFiles.add(processingFile);
             }
