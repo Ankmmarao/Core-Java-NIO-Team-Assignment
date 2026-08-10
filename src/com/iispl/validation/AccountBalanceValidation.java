@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import com.iispl.enums.AccountValidationEnum;
 import com.iispl.model.Account;
 
-public class AccountBalanceValidation implements ValidationRule {
+public class AccountBalanceValidation implements AccountValidationRule {
 
     @Override
     public AccountValidationEnum validate(Account account) {

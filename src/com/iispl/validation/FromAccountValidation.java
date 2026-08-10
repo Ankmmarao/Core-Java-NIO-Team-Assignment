@@ -3,7 +3,7 @@ package com.iispl.validation;
 import com.iispl.enums.AccountValidationEnum;
 import com.iispl.model.Account;
 
-public class FromAccountValidation implements ValidationRule {
+public class FromAccountValidation implements AccountValidationRule {
 
     @Override
     public AccountValidationEnum validate(Account account) {

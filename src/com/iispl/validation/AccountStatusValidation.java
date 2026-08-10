@@ -4,7 +4,7 @@ import com.iispl.enums.AccountStatus;
 import com.iispl.enums.AccountValidationEnum;
 import com.iispl.model.Account;
 
-public class AccountStatusValidation implements ValidationRule {
+public class AccountStatusValidation implements AccountValidationRule {
 
     @Override
     public AccountValidationEnum validate(Account account) {

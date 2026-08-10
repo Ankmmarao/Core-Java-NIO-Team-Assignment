@@ -10,6 +10,7 @@ import com.iispl.daoimpl.AccountDAOImpl;
 import com.iispl.daoimpl.TransactionDAOImpl;
 import com.iispl.enums.AccountValidationEnum;
 import com.iispl.enums.TransactionStatus;
+import com.iispl.enums.TransactionValidationEnum;
 import com.iispl.model.Account;
 import com.iispl.model.TransactionRequest;
 import com.iispl.model.TransactionResult;
@@ -19,8 +20,11 @@ import com.iispl.util.DBUtils;
 import com.iispl.validation.AccountBalanceValidation;
 import com.iispl.validation.AccountStatusValidation;
 import com.iispl.validation.AccountTypeValidation;
+import com.iispl.validation.AccountValidationRule;
 import com.iispl.validation.FromAccountValidation;
-import com.iispl.validation.ValidationRule;
+import com.iispl.validation.TransactionAmountValidation;
+import com.iispl.validation.TransactionIdValidation;
+import com.iispl.validation.TransactionValidationRule;
 
 public class TransactionServices {
 	private final String creditFailure="credit operation failed";
@@ -45,7 +49,27 @@ public class TransactionServices {
                 DBUtils.getDataSource()
                         .getConnection()) {
 
-            con.setAutoCommit(false);
+
+        // Transaction validations
+        List<TransactionValidationRule> transactionValidations =
+                new ArrayList<>();
+
+        transactionValidations.add(new TransactionIdValidation());
+        transactionValidations.add(new TransactionAmountValidation());
+
+        for (TransactionValidationRule rule : transactionValidations) {
+
+            TransactionValidationEnum result = rule.validate(tr);
+
+            if (result != TransactionValidationEnum.VALID_TRANSACTION) {
+
+                return createFailureResult(
+                        tr,
+                        result.name(),
+                        result.name());
+            }
+        }
+    	// Find FromAccount            con.setAutoCommit(false);
         // Find FromAccount
             transactionDAO.insertTransaction(con, tr);
 
@@ -73,8 +97,8 @@ public class TransactionServices {
                     "To account not found");
         }
 
-        // Validation rules
-        List<ValidationRule> validations =
+        // AccountValidation rules
+        List<AccountValidationRule> validations =
                 new ArrayList<>();
 
         validations.add(new FromAccountValidation());
@@ -83,7 +107,7 @@ public class TransactionServices {
         validations.add(new AccountBalanceValidation());
 
         // Validate From Account
-        for (ValidationRule rule : validations) {
+        for (AccountValidationRule rule : validations) {
 
             AccountValidationEnum validationResult =
                     rule.validate(fromAccount);
@@ -163,6 +187,25 @@ public class TransactionServices {
         }
     }
 
+    private Account findAccount(
+            String accountNumber) {
+
+        if (accountNumber == null) {
+            return null;
+        }
+
+        for (Account account : accounts) {
+
+            if (accountNumber.equals(
+                    account.getAccountNumber())) {
+
+                return account;
+            }
+        }
+
+        return null;
+    }
+    
     
 
     private TransactionResult createFailureResult(
