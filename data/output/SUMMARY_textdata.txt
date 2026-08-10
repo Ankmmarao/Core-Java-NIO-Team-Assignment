@@ -1,0 +1,11 @@
+========================================
+       FILE PROCESSING SUMMARY
+========================================
+Batch ID           : BATCH-20260805-003
+File Name          : textdata.xml
+Total Records      : 10
+Successful Records : 0
+Failed Records     : 10
+Processing Status   : FAILURE
+Processed At       : 2026-08-10 11:08:41.570336534
+========================================
