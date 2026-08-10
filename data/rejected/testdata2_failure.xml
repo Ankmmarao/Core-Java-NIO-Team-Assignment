@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transactions>
+    <transaction>
+        <transactionId>TXN5003</transactionId>
+        <batchId>null</batchId>
+        <fromAccount>ACC9999</fromAccount>
+        <toAccount>ACC1002</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>500.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Invalid source account</remarks>
+        <code>ACC9999</code>
+        <reason>From account not found</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN5005</transactionId>
+        <batchId>null</batchId>
+        <fromAccount>ACC1001</fromAccount>
+        <toAccount>ACC9999</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>1500.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Invalid destination account</remarks>
+        <code>ACC9999</code>
+        <reason>To account not found</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN5006</transactionId>
+        <batchId>null</batchId>
+        <fromAccount>ACC1004</fromAccount>
+        <toAccount>ACC1005</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>0.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Invalid zero amount</remarks>
+        <code>NOT_ACTIVE</code>
+        <reason>NOT_ACTIVE</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN5008</transactionId>
+        <batchId>null</batchId>
+        <fromAccount>ACC1005</fromAccount>
+        <toAccount>ACC1001</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>-500.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Invalid negative amount</remarks>
+        <code>INVALID_ACCOUNT_BALANCE</code>
+        <reason>INVALID_ACCOUNT_BALANCE</reason>
+    </transaction>
+    <transaction>
+        <transactionId>TXN5010</transactionId>
+        <batchId>null</batchId>
+        <fromAccount>ACC8888</fromAccount>
+        <toAccount>ACC7777</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>9000.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Invalid source and destination accounts</remarks>
+        <code>ACC8888</code>
+        <reason>From account not found</reason>
+    </transaction>
+</transactions>
