@@ -48,12 +48,16 @@ public class XmlDocumentReader {
                 document.getDocumentElement();
 
         // These are attributes of the root element
+        
+        String batchId=
+        		rootElement.getAttribute("batchId");
+
         String corporateId =
                 rootElement.getAttribute("corporateId");
 
         String createdDate =
                 rootElement.getAttribute("createdDate");
-
+        
         System.out.println("Corporate ID  : " + corporateId);
         System.out.println("Created Date  : " + createdDate);
 
@@ -75,16 +79,7 @@ public class XmlDocumentReader {
                     .item(0)
                     .getTextContent()
                     .trim();
-
-            // Batch ID
-            // IMPORTANT:
-            // batchId is inside <transaction>
-            String batchId =
-                    transactionElement
-                    .getElementsByTagName("batchId")
-                    .item(0)
-                    .getTextContent()
-                    .trim();
+        
 
             // From Account
             String fromAccount =

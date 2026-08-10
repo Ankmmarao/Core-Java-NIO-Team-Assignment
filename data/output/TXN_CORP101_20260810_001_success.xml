@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transactions>
+    <transaction>
+        <transactionId>TXN6001</transactionId>
+        <batchId>BATCH-20260810-777</batchId>
+        <fromAccount>ACC1001</fromAccount>
+        <toAccount>ACC1002</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>500.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Valid transfer</remarks>
+    </transaction>
+    <transaction>
+        <transactionId>TXN6003</transactionId>
+        <batchId>BATCH-20260810-777</batchId>
+        <fromAccount>ACC1002</fromAccount>
+        <toAccount>ACC1003</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>1000.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Valid transfer</remarks>
+    </transaction>
+    <transaction>
+        <transactionId>TXN6008</transactionId>
+        <batchId>BATCH-20260810-777</batchId>
+        <fromAccount>ACC1003</fromAccount>
+        <toAccount>ACC1002</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>250.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Valid transfer</remarks>
+    </transaction>
+    <transaction>
+        <transactionId>TXN6009</transactionId>
+        <batchId>BATCH-20260810-777</batchId>
+        <fromAccount>ACC1001</fromAccount>
+        <toAccount>ACC1004</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>0.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Zero amount</remarks>
+    </transaction>
+    <transaction>
+        <transactionId>TXN6010</transactionId>
+        <batchId>BATCH-20260810-777</batchId>
+        <fromAccount>ACC1002</fromAccount>
+        <toAccount>ACC1003</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>300.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Valid transfer</remarks>
+    </transaction>
+</transactions>

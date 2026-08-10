@@ -50,7 +50,8 @@ public class CTSMainApplication {
                 return;
             }
 
-          
+            TransactionServices transactionServices =
+                    new TransactionServices();
 
            
 
@@ -86,7 +87,11 @@ public class CTSMainApplication {
 
                 // Process transactions one by one
                 for (TransactionRequest request : requests) {
-                	
+                	TransactionResult result =
+                            transactionServices.processData(
+                                    request);
+
+                    results.add(result);
                    
                 }
 
