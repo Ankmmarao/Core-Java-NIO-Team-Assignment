@@ -1,6 +1,7 @@
 package com.iispl.daoimpl;
 
 import java.sql.Connection;
+
 import java.sql.Date;
 import java.sql.PreparedStatement;
 
@@ -39,7 +40,6 @@ public class TransactionDAOImpl implements TransactionDAO {
 
             ps.executeUpdate();
 
-            System.out.println("Transaction inserted successfully.");
         }
     }
 
@@ -58,7 +58,6 @@ public class TransactionDAOImpl implements TransactionDAO {
 
             ps.executeUpdate();
 
-            System.out.println("Transaction Result inserted successfully.");
         }
     }
 }

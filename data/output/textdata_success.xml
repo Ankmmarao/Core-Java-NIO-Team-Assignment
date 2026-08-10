@@ -1,3 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transactions>
+    <transaction>
+        <transactionId>TXN5001</transactionId>
+        <batchId>null</batchId>
+        <fromAccount>ACC1001</fromAccount>
+        <toAccount>ACC1003</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>1800.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Valid fund transfer</remarks>
+    </transaction>
+    <transaction>
+        <transactionId>TXN5004</transactionId>
+        <batchId>null</batchId>
+        <fromAccount>ACC1002</fromAccount>
+        <toAccount>ACC1005</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>0.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Invalid zero amount</remarks>
+    </transaction>
+    <transaction>
+        <transactionId>TXN5005</transactionId>
+        <batchId>null</batchId>
+        <fromAccount>ACC1003</fromAccount>
+        <toAccount>ACC1004</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>4200.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Valid fund transfer</remarks>
+    </transaction>
+    <transaction>
+        <transactionId>TXN5007</transactionId>
+        <batchId>null</batchId>
+        <fromAccount>ACC1001</fromAccount>
+        <toAccount>ACC1005</toAccount>
+        <transactionType>SALARY_CREDIT</transactionType>
+        <amount>12500.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Valid salary credit</remarks>
+    </transaction>
+    <transaction>
+        <transactionId>TXN5009</transactionId>
+        <batchId>null</batchId>
+        <fromAccount>ACC1002</fromAccount>
+        <toAccount>ACC1003</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>5600.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Valid fund transfer</remarks>
+    </transaction>
 </transactions>

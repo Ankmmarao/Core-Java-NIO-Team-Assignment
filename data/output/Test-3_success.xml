@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transactions>
+    <transaction>
+        <transactionId>TXN001</transactionId>
+        <batchId>BATCH001</batchId>
+        <fromAccount>ACC1001</fromAccount>
+        <toAccount>ACC1002</toAccount>
+        <transactionType>TRANSFER</transactionType>
+        <amount>100.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Payment 1</remarks>
+    </transaction>
+</transactions>

@@ -20,6 +20,8 @@ public class FileProcessingDAOImpl implements FileProcessingDAO {
 			ps.setInt(4, summary.getSuccessfulRecords());
 			ps.setInt(5, summary.getFailedRecords());
 			ps.setLong(6, summary.getSuccessfulRecords());
+			ps.executeUpdate();
+			
 		}
 		catch(Exception e) {
 			System.out.println(e.getMessage());

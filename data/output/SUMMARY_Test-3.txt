@@ -1,11 +1,11 @@
 ========================================
        FILE PROCESSING SUMMARY
 ========================================
-Batch ID           : null
-File Name          : textdata.xml
+Batch ID           : BATCH001
+File Name          : Test-3.xml
 Total Records      : 10
-Successful Records : 5
-Failed Records     : 5
+Successful Records : 1
+Failed Records     : 9
 Processing Status   : PARTIAL_SUCCESS
-Processed At       : 2026-08-10 15:32:51.594237545
+Processed At       : 2026-08-10 15:20:13.139791948
 ========================================
