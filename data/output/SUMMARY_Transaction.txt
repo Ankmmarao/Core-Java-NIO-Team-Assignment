@@ -1,0 +1,11 @@
+========================================
+       FILE PROCESSING SUMMARY
+========================================
+Batch ID           : null
+File Name          : Transaction.xml
+Total Records      : 10
+Successful Records : 2
+Failed Records     : 8
+Processing Status   : PARTIAL_SUCCESS
+Processed At       : 2026-08-10 14:12:49.591761011
+========================================

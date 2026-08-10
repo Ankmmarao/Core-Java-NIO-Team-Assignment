@@ -25,7 +25,7 @@ public class TransactionServices {
     private final AccountDAO accountDAO =
             new AccountDAOImpl();
 
-
+ 
     private final SucessTransactionXmlWriter successWriter =
             new SucessTransactionXmlWriter();
 
@@ -184,6 +184,7 @@ public class TransactionServices {
 
         result.setReason(
                 "All validations passed");
+        
 
         return result;
     }
