@@ -97,7 +97,7 @@ public class FileIntakeService {
 	            Files.readAttributes(path, BasicFileAttributes.class);
 
 	    System.out.println("========== File Details ==========");
-//	    System.out.println("File Name      : " + fileName);
+
 	    System.out.println("File Size      : " + attributes.size() + " bytes");
 	    System.out.println("Created Time   : " + attributes.creationTime());
 	    System.out.println("Last Modified  : " + attributes.lastModifiedTime());

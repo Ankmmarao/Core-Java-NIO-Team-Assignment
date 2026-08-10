@@ -33,6 +33,8 @@ public class TransactionServices {
     private final RejectTransactionXmlWriter rejectWriter =
             new RejectTransactionXmlWriter();
 
+    
+    
     public TransactionServices(List<Account> accounts) {
         this.accounts = accounts;
     }
