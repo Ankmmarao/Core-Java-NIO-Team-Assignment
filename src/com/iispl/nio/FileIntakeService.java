@@ -80,12 +80,12 @@ public class FileIntakeService {
 	        throw new Exception("Not a valid file.");
 	    }
 
-	    //  File name validation
-	    String fileName = path.getFileName().toString();
-
-	    if (!fileName.matches(Constants.FILE_NAME_REGEX)) {
-	        throw new Exception("Invalid file name : " + fileName);
-	    }
+//	    //  File name validation
+//	    String fileName = path.getFileName().toString();
+//
+//	    if (!fileName.matches(Constants.FILE_NAME_REGEX)) {
+//	        throw new Exception("Invalid file name : " + fileName);
+//	    }
 
 	    // Empty file validation
 	    if (Files.size(path) == 0) {
@@ -97,7 +97,7 @@ public class FileIntakeService {
 	            Files.readAttributes(path, BasicFileAttributes.class);
 
 	    System.out.println("========== File Details ==========");
-	    System.out.println("File Name      : " + fileName);
+//	    System.out.println("File Name      : " + fileName);
 	    System.out.println("File Size      : " + attributes.size() + " bytes");
 	    System.out.println("Created Time   : " + attributes.creationTime());
 	    System.out.println("Last Modified  : " + attributes.lastModifiedTime());
