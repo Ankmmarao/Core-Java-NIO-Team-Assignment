@@ -50,11 +50,9 @@ public class CTSMainApplication {
                 return;
             }
 
-            List<Account> accounts =
-                    getAccounts();
+          
 
-            TransactionServices transactionServices =
-                    new TransactionServices(accounts);
+           
 
             SucessTransactionXmlWriter successWriter =
                     new SucessTransactionXmlWriter();
@@ -89,11 +87,7 @@ public class CTSMainApplication {
                 // Process transactions one by one
                 for (TransactionRequest request : requests) {
                 	
-                    TransactionResult result =
-                            transactionServices.processData(
-                                    request);
-
-                    results.add(result);
+                   
                 }
 
                 // Create file names
@@ -198,9 +192,5 @@ public class CTSMainApplication {
         }
     }
 
-    private static List<Account> getAccounts() {
-
-        // Replace with your actual account loading logic
-        return List.of();
-    }
+    
 }
