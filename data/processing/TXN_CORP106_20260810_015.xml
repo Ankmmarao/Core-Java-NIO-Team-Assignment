@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bulkTransactions batchId="BATCH-20260810-001" corporateId="CORP106" createdDate="2026-08-10">
+
+    <transaction>
+        <transactionId>TXN8001</transactionId>
+        <fromAccount>ACC1001</fromAccount>
+        <toAccount>ACC1002</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>100.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Valid transfer from ACC1001 to ACC1002</remarks>
+    </transaction>
+
+    <transaction>
+        <transactionId>TXN8002</transactionId>
+        <fromAccount>ACC1002</fromAccount>
+        <toAccount>ACC1003</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>100.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Valid transfer from ACC1002 to ACC1003</remarks>
+    </transaction>
+
+    <transaction>
+        <transactionId>TXN8003</transactionId>
+        <fromAccount>ACC1003</fromAccount>
+        <toAccount>ACC1004</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>100.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Valid transfer from ACC1003 to ACC1004</remarks>
+    </transaction>
+
+    <transaction>
+        <transactionId>TXN8004</transactionId>
+        <fromAccount>ACC1004</fromAccount>
+        <toAccount>ACC1005</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>100.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Valid transfer from ACC1004 to ACC1005</remarks>
+    </transaction>
+
+    <transaction>
+        <transactionId>TXN8005</transactionId>
+        <fromAccount>ACC1005</fromAccount>
+        <toAccount>ACC1001</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>100.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Valid transfer from ACC1005 to ACC1001</remarks>
+    </transaction>
+
+</bulkTransactions>

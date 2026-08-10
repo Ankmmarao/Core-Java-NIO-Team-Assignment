@@ -1,10 +1,9 @@
 package com.iispl.validation;
 
-import com.iispl.enums.AccountType;
 import com.iispl.enums.AccountValidationEnum;
 import com.iispl.model.Account;
 
-public class AccountTypeValidation implements ValidationRule {
+public class AccountTypeValidation implements AccountValidationRule {
 
     @Override
     public AccountValidationEnum validate(Account account) {
