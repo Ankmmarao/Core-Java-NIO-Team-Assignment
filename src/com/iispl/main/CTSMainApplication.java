@@ -50,11 +50,9 @@ public class CTSMainApplication {
                 return;
             }
 
-            List<Account> accounts =
-                    getAccounts();
 
             TransactionServices transactionServices =
-                    new TransactionServices(accounts);
+                    new TransactionServices();
 
             SucessTransactionXmlWriter successWriter =
                     new SucessTransactionXmlWriter();
@@ -198,9 +196,5 @@ public class CTSMainApplication {
         }
     }
 
-    private static List<Account> getAccounts() {
-
-        // Replace with your actual account loading logic
-        return List.of();
-    }
+    
 }
