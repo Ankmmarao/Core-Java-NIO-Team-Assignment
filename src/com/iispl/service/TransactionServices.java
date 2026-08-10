@@ -29,7 +29,6 @@ public class TransactionServices {
     private final AccountDAO accountDAO =
             new AccountDAOImpl();
 
-    private final List<Account> accounts;
 
     private final SucessTransactionXmlWriter successWriter =
             new SucessTransactionXmlWriter();
@@ -37,12 +36,13 @@ public class TransactionServices {
     private final RejectTransactionXmlWriter rejectWriter =
             new RejectTransactionXmlWriter();
 
-    public TransactionServices(List<Account> accounts) {
-        this.accounts = accounts;
-    }
 
     public TransactionResult processData(TransactionRequest tr) throws Exception {
+    	try (Connection con =
+                DBUtils.getDataSource()
+                        .getConnection()) {
 
+<<<<<<< HEAD
 
         // Transaction validations
         List<TransactionValidationRule> transactionValidations =
@@ -64,8 +64,12 @@ public class TransactionServices {
             }
         }
     	// Find FromAccount
+	=======
+            con.setAutoCommit(false);
+        // Find FromAccount
+>>>>>>> origin/main
         Account fromAccount =
-                findAccount(tr.getFromAccount());
+                accountDAO.getAccount(con, tr.getFromAccount());
 
         if (fromAccount == null) {
 
@@ -77,7 +81,7 @@ public class TransactionServices {
 
         // Find ToAccount
         Account toAccount =
-                findAccount(tr.getToAccount());
+                accountDAO.getAccount(con, tr.getToAccount());
 
         if (toAccount == null) {
 
@@ -113,11 +117,7 @@ public class TransactionServices {
         }
 
         // Debit and Credit
-        try (Connection con =
-                DBUtils.getDataSource()
-                        .getConnection()) {
-
-            con.setAutoCommit(false);
+        
 
             // Debit
             boolean debit =
@@ -186,6 +186,8 @@ public class TransactionServices {
         return null;
     }
     
+    
+
     private TransactionResult createFailureResult(
             TransactionRequest tr,
             String code,

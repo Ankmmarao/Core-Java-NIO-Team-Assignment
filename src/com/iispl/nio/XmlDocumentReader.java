@@ -27,69 +27,124 @@ public class XmlDocumentReader {
             throw new Exception("XML file path is null.");
         }
 
-        FileChannel channel = FileChannel.open(path, StandardOpenOption.READ);
+        FileChannel channel = FileChannel.open(
+                path,
+                StandardOpenOption.READ
+        );
 
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
+        DocumentBuilderFactory factory =
+                DocumentBuilderFactory.newInstance();
 
-        InputStream inputStream = Channels.newInputStream(channel);
-        Document document = builder.parse(inputStream);
+        DocumentBuilder builder =
+                factory.newDocumentBuilder();
 
-        Element rootElement = document.getDocumentElement();
+        InputStream inputStream =
+                Channels.newInputStream(channel);
 
-        String batchId = rootElement.getAttribute("batchId");
-        String corporateId = rootElement.getAttribute("corporateId");
-        String createdDate = rootElement.getAttribute("createdDate");
+        Document document =
+                builder.parse(inputStream);
 
-        System.out.println("Batch ID      : " + batchId);
+        Element rootElement =
+                document.getDocumentElement();
+
+        // These are attributes of the root element
+        
+        String batchId=
+        		rootElement.getAttribute("batchId");
+
+        String corporateId =
+                rootElement.getAttribute("corporateId");
+
+        String createdDate =
+                rootElement.getAttribute("createdDate");
+        
         System.out.println("Corporate ID  : " + corporateId);
         System.out.println("Created Date  : " + createdDate);
 
-        NodeList transactions = document.getElementsByTagName("transaction");
+        NodeList transactions =
+                document.getElementsByTagName("transaction");
 
-        List<TransactionRequest> transactionList = new ArrayList<>();
+        List<TransactionRequest> transactionList =
+                new ArrayList<>();
 
         for (int i = 0; i < transactions.getLength(); i++) {
 
-            Element transactionElement = (Element) transactions.item(i);
+            Element transactionElement =
+                    (Element) transactions.item(i);
 
-            String transactionId = transactionElement
+            // Transaction ID
+            String transactionId =
+                    transactionElement
                     .getElementsByTagName("transactionId")
                     .item(0)
-                    .getTextContent();
+                    .getTextContent()
+                    .trim();
+        
 
-            String fromAccount = transactionElement
+            // From Account
+            String fromAccount =
+                    transactionElement
                     .getElementsByTagName("fromAccount")
                     .item(0)
-                    .getTextContent();
+                    .getTextContent()
+                    .trim();
 
-            String toAccount = transactionElement
+            // To Account
+            String toAccount =
+                    transactionElement
                     .getElementsByTagName("toAccount")
                     .item(0)
-                    .getTextContent();
+                    .getTextContent()
+                    .trim();
 
-            String transactionType = transactionElement
-                    .getElementsByTagName("transactionType")  
-                    .item(0)
-                    .getTextContent();
-
-            BigDecimal amount = new BigDecimal(
+            // Transaction Type
+            String transactionType =
                     transactionElement
-                    .getElementsByTagName("amount")
+                    .getElementsByTagName("transactionType")
                     .item(0)
-                    .getTextContent());
+                    .getTextContent()
+                    .trim();
 
-            LocalDate transactionDate = LocalDate.parse(
+            // Amount
+            BigDecimal amount =
+                    new BigDecimal(
+                            transactionElement
+                            .getElementsByTagName("amount")
+                            .item(0)
+                            .getTextContent()
+                            .trim()
+                    );
+
+            // Transaction Date
+            LocalDate transactionDate =
+                    LocalDate.parse(
+                            transactionElement
+                            .getElementsByTagName("transactionDate")
+                            .item(0)
+                            .getTextContent()
+                            .trim()
+                    );
+
+            // Remarks
+            String remarks =
                     transactionElement
-                    .getElementsByTagName("transactionDate")
-                    .item(0)
-                    .getTextContent());
-
-            String remarks = transactionElement
                     .getElementsByTagName("remarks")
                     .item(0)
-                    .getTextContent();
+                    .getTextContent()
+                    .trim();
 
+            // Display the data
+            System.out.println("-----------------------------------");
+            System.out.println("Transaction ID : " + transactionId);
+            System.out.println("Batch ID       : " + batchId);
+            System.out.println("From Account   : " + fromAccount);
+            System.out.println("To Account     : " + toAccount);
+            System.out.println("Type           : " + transactionType);
+            System.out.println("Amount         : " + amount);
+            System.out.println("Date           : " + transactionDate);
+            System.out.println("Remarks        : " + remarks);
+
+            // Create TransactionRequest object
             TransactionRequest transactionRequest =
                     new TransactionRequest(
                             transactionId,
@@ -99,7 +154,8 @@ public class XmlDocumentReader {
                             transactionType,
                             amount,
                             transactionDate,
-                            remarks);
+                            remarks
+                    );
 
             transactionList.add(transactionRequest);
         }

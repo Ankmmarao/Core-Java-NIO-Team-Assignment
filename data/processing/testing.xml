@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bulkTransactions batchId="BATCH-20260805-002" corporateId="CORP101" createdDate="2026-08-05">
+    <transaction>
+        <transactionId>TXN2001</transactionId>
+        <fromAccount>ACC1001</fromAccount>
+        <toAccount>ACC1002</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>100.00</amount>
+        <transactionDate>2026-08-05</transactionDate>
+        <remarks>Valid transfer</remarks>
+    </transaction>
+
+    <transaction>
+        <transactionId>TXN2002</transactionId>
+        <fromAccount>999999</fromAccount>
+        <toAccount>200001</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>500.00</amount>
+        <transactionDate>2026-08-05</transactionDate>
+        <remarks>Invalid source account</remarks>
+    </transaction>
+
+    <transaction>
+        <transactionId>TXN2003</transactionId>
+        <fromAccount>100001</fromAccount>
+        <toAccount>300001</toAccount>
+        <transactionType>SALARY_CREDIT</transactionType>
+        <amount>-250.00</amount>
+        <transactionDate>2026-08-05</transactionDate>
+        <remarks>Invalid amount</remarks>
+    </transaction>
+</bulkTransactions>
