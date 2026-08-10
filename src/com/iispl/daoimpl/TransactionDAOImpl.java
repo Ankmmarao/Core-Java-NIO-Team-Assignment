@@ -40,7 +40,6 @@ public class TransactionDAOImpl implements TransactionDAO {
 
             ps.executeUpdate();
 
-            System.out.println("Transaction inserted successfully.");
         }
     }
 
@@ -59,7 +58,6 @@ public class TransactionDAOImpl implements TransactionDAO {
 
             ps.executeUpdate();
 
-            System.out.println("Transaction Result inserted successfully.");
         }
     }
 }
