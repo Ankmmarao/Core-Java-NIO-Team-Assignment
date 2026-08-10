@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.iispl.dao.AccountDAO;
+import com.iispl.dao.TransactionDAO;
 import com.iispl.daoimpl.AccountDAOImpl;
+import com.iispl.daoimpl.TransactionDAOImpl;
 import com.iispl.enums.AccountValidationEnum;
 import com.iispl.enums.TransactionStatus;
 import com.iispl.model.Account;
@@ -21,11 +23,16 @@ import com.iispl.validation.FromAccountValidation;
 import com.iispl.validation.ValidationRule;
 
 public class TransactionServices {
+	private final String creditFailure="credit operation failed";
+	
+	private final String debitFailre="Debit operation failed";
 
     private final AccountDAO accountDAO =
             new AccountDAOImpl();
+    
+    private final TransactionDAO transactionDAO =
+            new TransactionDAOImpl();
 
- 
     private final SucessTransactionXmlWriter successWriter =
             new SucessTransactionXmlWriter();
 
@@ -40,6 +47,9 @@ public class TransactionServices {
 
             con.setAutoCommit(false);
         // Find FromAccount
+            transactionDAO.insertTransaction(con, tr);
+
+            
         Account fromAccount =
                 accountDAO.getAccount(con, tr.getFromAccount());
 
@@ -102,10 +112,15 @@ public class TransactionServices {
 
                 con.rollback();
 
-                return createFailureResult(
+                TransactionResult result= createFailureResult(
                         tr,
                         "DEBIT001",
-                        "Debit operation failed");
+                        debitFailre);
+                
+                transactionDAO.insertTransactionResult( con, result);
+                con.commit();
+
+                return result;
             }
 
             // Credit
@@ -119,16 +134,25 @@ public class TransactionServices {
 
                 con.rollback();
 
-                return createFailureResult(
+                TransactionResult result= createFailureResult(
                         tr,
                         "CREDIT001",
-                        "Credit operation failed");
+                        creditFailure);
+                
+                transactionDAO.insertTransactionResult( con, result);
+                con.commit();
+
+                return result;
             }
 
             // Both successful
-            con.commit();
+            
 
-            return createSuccessResult(tr);
+            TransactionResult result= createSuccessResult(tr);
+            transactionDAO.insertTransactionResult( con, result);
+            
+            con.commit();
+            return result;
 
         } catch (Exception e) {
 
@@ -184,7 +208,6 @@ public class TransactionServices {
 
         result.setReason(
                 "All validations passed");
-        
 
         return result;
     }
