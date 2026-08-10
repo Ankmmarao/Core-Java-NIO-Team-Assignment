@@ -53,8 +53,6 @@ public class CTSMainApplication {
             TransactionServices transactionServices =
                     new TransactionServices();
 
-           
-
             SucessTransactionXmlWriter successWriter =
                     new SucessTransactionXmlWriter();
 

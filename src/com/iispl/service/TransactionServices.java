@@ -42,7 +42,6 @@ public class TransactionServices {
                 DBUtils.getDataSource()
                         .getConnection()) {
 
-<<<<<<< HEAD
 
         // Transaction validations
         List<TransactionValidationRule> transactionValidations =
@@ -63,11 +62,8 @@ public class TransactionServices {
                         result.name());
             }
         }
-    	// Find FromAccount
-	=======
-            con.setAutoCommit(false);
+    	// Find FromAccount            con.setAutoCommit(false);
         // Find FromAccount
->>>>>>> origin/main
         Account fromAccount =
                 accountDAO.getAccount(con, tr.getFromAccount());
 
