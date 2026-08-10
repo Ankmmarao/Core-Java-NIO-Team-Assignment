@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<bulkTransactions batchId="BATCH-20260810-005"
+                  corporateId="CORP101"
+                  createdDate="2026-08-10">
+
+    <transaction>
+        <transactionId>TXN5001</transactionId>
+        <fromAccount>ACC1001</fromAccount>
+        <toAccount>ACC1002</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>1000.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Valid fund transfer</remarks>
+    </transaction>
+
+    <transaction>
+        <transactionId>TXN5002</transactionId>
+        <fromAccount>ACC1002</fromAccount>
+        <toAccount>ACC1003</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>2500.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Valid fund transfer</remarks>
+    </transaction>
+
+    <transaction>
+        <transactionId>TXN5003</transactionId>
+        <fromAccount>ACC9999</fromAccount>
+        <toAccount>ACC1002</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>500.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Invalid source account</remarks>
+    </transaction>
+
+    <transaction>
+        <transactionId>TXN5004</transactionId>
+        <fromAccount>ACC1003</fromAccount>
+        <toAccount>ACC1004</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>7500.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Valid fund transfer</remarks>
+    </transaction>
+
+    <transaction>
+        <transactionId>TXN5005</transactionId>
+        <fromAccount>ACC1001</fromAccount>
+        <toAccount>ACC9999</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>1500.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Invalid destination account</remarks>
+    </transaction>
+
+    <transaction>
+        <transactionId>TXN5006</transactionId>
+        <fromAccount>ACC1004</fromAccount>
+        <toAccount>ACC1005</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>0.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Invalid zero amount</remarks>
+    </transaction>
+
+    <transaction>
+        <transactionId>TXN5007</transactionId>
+        <fromAccount>ACC1002</fromAccount>
+        <toAccount>ACC1005</toAccount>
+        <transactionType>SALARY_CREDIT</transactionType>
+        <amount>5000.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Valid salary credit</remarks>
+    </transaction>
+
+    <transaction>
+        <transactionId>TXN5008</transactionId>
+        <fromAccount>ACC1005</fromAccount>
+        <toAccount>ACC1001</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>-500.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Invalid negative amount</remarks>
+    </transaction>
+
+    <transaction>
+        <transactionId>TXN5009</transactionId>
+        <fromAccount>ACC1001</fromAccount>
+        <toAccount>ACC1003</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>300.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Valid fund transfer</remarks>
+    </transaction>
+
+    <transaction>
+        <transactionId>TXN5010</transactionId>
+        <fromAccount>ACC8888</fromAccount>
+        <toAccount>ACC7777</toAccount>
+        <transactionType>FUND_TRANSFER</transactionType>
+        <amount>9000.00</amount>
+        <transactionDate>2026-08-10</transactionDate>
+        <remarks>Invalid source and destination accounts</remarks>
+    </transaction>
+
+</bulkTransactions>

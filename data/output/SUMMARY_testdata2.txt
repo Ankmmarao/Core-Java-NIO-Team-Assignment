@@ -1,0 +1,11 @@
+========================================
+       FILE PROCESSING SUMMARY
+========================================
+Batch ID           : null
+File Name          : testdata2.xml
+Total Records      : 10
+Successful Records : 5
+Failed Records     : 5
+Processing Status   : PARTIAL_SUCCESS
+Processed At       : 2026-08-10 15:32:39.374744124
+========================================
